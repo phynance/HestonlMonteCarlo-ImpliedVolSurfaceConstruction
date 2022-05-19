@@ -17,28 +17,27 @@ First of all, the Heston model decribes the asset price with the bivariate SDE:
 
 The variance is running under CIR process which may be negative if the Feller condition <a href="https://www.codecogs.com/eqnedit.php?latex=2\kappa\theta&space;>&space;\sigma^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?2\kappa\theta&space;>&space;\sigma^2" title="2\kappa\theta > \sigma^2" /></a> is not satisfied.
 
-To deal with that, we provide 2 schemes, either full truncation scheme or reflection scheme, which set the variance to zero or take the absolute value of it. 
+To deal with that, there are 2 schemes provided, either full truncation scheme or reflection scheme, which set the variance to zero or take the absolute value of it. 
+
+While the module "HestonPutCombined" is used to implement the Monte-Carlo simulation and produce the Put option price, the main program "Put 
 
 After generating a new value of variance, we update the asset price with either Euler scheme or Milstein scheme. Users can test the convergence rate of both schemes.
 
 Users can set the values of the model parameters here. 
 ```
-##############################################   Parameters Values     ##############################################
-numPaths = 10000
-rho = -0.02         # correlation of the bivariables
-S_0 = 1             # initila asset price
-V_0 = (0.2)**2      # initial variance
-kappa = 2           # mean-reversion rate 
-theta = (0.2)**2    # long-run variance
-sigma = 0.1         # volatility of volatility
-r = 0.01            # risk-free interest rate
-q = 0.0             # dividend
-dt = 0.001          # size of time-step 
-Tmax = 3            # longest maturity 
-ExercList = np.arange(0.1, 2, 0.1).tolist()
-MaturityList = np.arange(0.5, Tmax+0.25, 0.25).tolist()
-######################################################################################################################
-```
+# ######################   Parameters Values     ######################
+ExercList = np.arange(1.5, 2.5, 0.1).tolist()
+MaturityList = np.arange(0.5, 3+0.1, 0.1).tolist()
+
+S_0=2
+r=0.02
+
+(S, V, Vcount0, OptionPriceMatrix, stdErrTable, Payoff) = \
+EulerMilsteinPrice('Milstein', 'Trunca', numPaths=500, rho= -0.6, S_0=S_0, V_0=(0.1)**2, \
+   Tmax=3,  kappa=0.5,theta=(0.25)**2 , sigma=0.1, r=r, q=0.0, MaturityList=MaturityList, \
+       ExercList=ExercList)
+# ######################################################################
+    
 ## Result
 The program outputs three figures, 
 1. simulated asset paths, 
@@ -50,6 +49,9 @@ Users can see the number of times variances reaching zero.
 
 3. the payoff diagram across moneyness and maturities. 
 <img src="https://github.com/phynance/HestonMonteCarlo/blob/master/payoffDiagram.png">
+
+4. the implied vol surface constructed by the Newton-Raphson method.
+
 
 and the details are stored in the matrix 
 ```
