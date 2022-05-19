@@ -54,10 +54,26 @@ Users can see the number of times variances reaching zero.
 3. the payoff diagram across moneyness and maturities. 
 <img src="https://github.com/phynance/HestonMonteCarlo/blob/master/payoffDiagram.png">
 
-4. the implied vol surface constructed by the Newton-Raphson method.
+4. the implied vol surface is constructed in the function "impVolBsPut" by the Newton-Raphson method. 
 <img src="https://github.com/phynance/HestonlMonteCarlo-ImpliedVolSurfaceConstruction/blob/master/ImpliedVolSurface.png">
 
-and the details are stored in the matrix 
+Define our function as f(x) for which we want to solve f(x)=0. In our case, it is equivalent to <img src="https://latex.codecogs.com/svg.image?f(\sigma)&space;=&space;P_{BS}&space;-&space;P_{Heston}&space;" /></a> 
+
+Setting the initial guess of sigma to be 0.2.  
+
+Iterate as follows <img src="https://latex.codecogs.com/svg.image?\sigma_{n&plus;1}&space;=&space;\sigma_{n}&space;-&space;&space;&space;&space;\frac{P_{BS}(\sigma)&space;-&space;P_{Heston}(\sigma)}&space;&space;{\frac{\partial&space;P_{BS}}{\partial\sigma}}" /></a> ,
+which is equivalent to the code
+
 ```
-OptionPriceMatrix
+increment = (P-float(P_heston))/Pvega  
+sigma = float(sigma) - increment
+```
+And it is convenient that the Vega of Black-Scholes put option has the closed-form 
+<img src="https://latex.codecogs.com/svg.image?Vega&space;=&space;S\sqrt{TN'(d_1)}" /></a> 
+
+
+
+5. The results of option price and implied volatility surface across moneyness and maturity are stored in 
+```
+OptionPriceMatrix , ImpVolTable
 ```
