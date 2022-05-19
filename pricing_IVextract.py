@@ -54,9 +54,8 @@ def impVolBsPut(S,E,r,T,P_heston):
             Pvega = float(0.01)
             #return 0
             # Pvega = 0.2
-            # 
             
-        increment = (P-float(P_heston))/Pvega  #easily prone to division error
+        increment = (P-float(P_heston))/Pvega  
         sigma = float(sigma) - increment
         sigmadiff = abs(increment)  #stop searching when the increment is smaller than the tolerance
         k = k+1
@@ -71,8 +70,6 @@ if __name__ == "__main__":
     
     
     # ######################   Parameters Values     ######################
-
-
     ExercList = np.arange(1.5, 2.5, 0.1).tolist()
     MaturityList = np.arange(0.5, 3+0.1, 0.1).tolist()
     
