@@ -6,8 +6,6 @@ from HestonPutCombined import EulerMilsteinPrice #import the Hestonston simulati
 from scipy.stats import norm
 
 import time
-start_time = time.time()
-
 
 
 def impVolBsPut(S,E,r,T,P_heston):
@@ -71,17 +69,21 @@ def impVolBsPut(S,E,r,T,P_heston):
 if __name__ == "__main__":
     start_time = time.time() 
     
+    
+    # ######################   Parameters Values     ######################
+
+
     ExercList = np.arange(1.5, 2.5, 0.1).tolist()
     MaturityList = np.arange(0.5, 3+0.1, 0.1).tolist()
     
     S_0=2
     r=0.02
     
-    # =============================================================================
     (S, V, Vcount0, OptionPriceMatrix, stdErrTable, Payoff) = \
     EulerMilsteinPrice('Milstein', 'Trunca', numPaths=500, rho= -0.6, S_0=S_0, V_0=(0.1)**2, \
-       Tmax=3,  kappa=0.5,theta=(0.25)**2 , sigma=0.1, r=r, q=0.0, MaturityList=MaturityList, ExercList=ExercList)
-    # =============================================================================
+       Tmax=3,  kappa=0.5,theta=(0.25)**2 , sigma=0.1, r=r, q=0.0, MaturityList=MaturityList, \
+           ExercList=ExercList)
+    # ######################################################################
     
     ImpVolTable = np.zeros((len(ExercList), len(MaturityList)))
     
