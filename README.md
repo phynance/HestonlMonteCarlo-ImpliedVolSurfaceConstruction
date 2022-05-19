@@ -7,7 +7,10 @@ Although there is semi-closed form solution derived for plain vanilla option und
 
 
 ## How to use?
-First of all, the Heston model decribes the asset price with the bivariate SDE:
+First of all, the module "HestonPutCombined" is used to implement the Monte-Carlo simulation of Heston model and produce the Put option price, while the main program "pricing_IVextract" is to calculate and construct the plots of option payoff diagram and implied volatility surface..
+
+
+The Heston model decribes the asset price with the bivariate SDE:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{aligned}&space;dS(t)&space;&=&space;(r-q)S(t)dt&space;&plus;\sqrt{\upsilon(t)}S(t)dW&space;\\&space;d\upsilon(t)&space;&=&space;\kappa(\theta-\upsilon(t))dt&plus;\sigma&space;\sqrt{\upsilon(t)}dZ&space;\end{aligned}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{aligned}&space;dS(t)&space;&=&space;(r-q)S(t)dt&space;&plus;\sqrt{\upsilon(t)}S(t)dW&space;\\&space;d\upsilon(t)&space;&=&space;\kappa(\theta-\upsilon(t))dt&plus;\sigma&space;\sqrt{\upsilon(t)}dZ&space;\end{aligned}" title="\begin{aligned} dS(t) &= (r-q)S(t)dt +\sqrt{\upsilon(t)}S(t)dW \\ d\upsilon(t) &= \kappa(\theta-\upsilon(t))dt+\sigma \sqrt{\upsilon(t)}dZ \end{aligned}" /></a>
 
@@ -19,7 +22,7 @@ The variance is running under CIR process which may be negative if the Feller co
 
 To deal with that, there are 2 schemes provided, either full truncation scheme or reflection scheme, which set the variance to zero or take the absolute value of it. 
 
-While the module "HestonPutCombined" is used to implement the Monte-Carlo simulation and produce the Put option price, the main program "Put 
+
 
 After generating a new value of variance, we update the asset price with either Euler scheme or Milstein scheme. Users can test the convergence rate of both schemes.
 
@@ -37,7 +40,8 @@ EulerMilsteinPrice('Milstein', 'Trunca', numPaths=500, rho= -0.6, S_0=S_0, V_0=(
    Tmax=3,  kappa=0.5,theta=(0.25)**2 , sigma=0.1, r=r, q=0.0, MaturityList=MaturityList, \
        ExercList=ExercList)
 # ######################################################################
-    
+```
+
 ## Result
 The program outputs three figures, 
 1. simulated asset paths, 
@@ -51,7 +55,7 @@ Users can see the number of times variances reaching zero.
 <img src="https://github.com/phynance/HestonMonteCarlo/blob/master/payoffDiagram.png">
 
 4. the implied vol surface constructed by the Newton-Raphson method.
-
+<img src="https://github.com/phynance/HestonlMonteCarlo-ImpliedVolSurfaceConstruction/blob/master/ImpliedVolSurface.png">
 
 and the details are stored in the matrix 
 ```
