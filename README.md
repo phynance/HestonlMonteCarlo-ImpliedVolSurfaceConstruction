@@ -7,7 +7,7 @@ Although there is semi-closed form solution derived for plain vanilla option und
 
 
 ## How to use?
-First of all, the module "HestonPutCombined" is used to implement the Monte-Carlo simulation of Heston model and produce the Put option price, while the main program "pricing_IVextract" is to calculate and construct the plots of option payoff diagram and implied volatility surface..
+First of all, the module "HestonPutCombined" is used to implement the Monte-Carlo simulation of Heston model and produce the Put option price, while the main program "main.py" is to calculate and construct the plots of option payoff diagram and implied volatility surface..
 
 
 The Heston model decribes the asset price with the bivariate SDE:
