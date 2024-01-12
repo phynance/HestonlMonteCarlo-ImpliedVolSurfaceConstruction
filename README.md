@@ -63,7 +63,7 @@ $$f(\sigma) = P_{BS} - P_{Heston}$$
 Setting the initial guess of sigma to be 0.2.  
 
 Iterate as follows 
-$$ \sigma_{n&plus;1} = \sigma_{n} -  \frac{P_{BS}(\sigma) - P_{Heston}(\sigma)}  {\frac{\partial P_{BS}}{\partial\sigma}}$$ ,
+$`\sigma_{n&plus;1} = \sigma_{n} -  \frac{P_{BS}(\sigma) - P_{Heston}(\sigma)}  {\frac{\partial P_{BS}}{\partial\sigma}}`$ ,
 which is equivalent to the code
 
 ```
